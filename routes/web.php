@@ -6,8 +6,11 @@ use App\Http\Controllers\PromptController;
 use App\Models\Prompt;
 
 Route::get('/', function () {
-    return redirect()->route('dashboard');
-});
+    if (auth()->check()) return redirect()->route('dashboard');
+    return view('welcome');
+})->name('home');
+
+Route::post('/generate-guest', [PromptController::class, 'generateGuest']);
 
 /*
 |--------------------------------------------------------------------------
